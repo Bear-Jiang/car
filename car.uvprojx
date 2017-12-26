@@ -336,7 +336,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\BSP;.\RTOS;.\APP</IncludePath>
+              <IncludePath>.\BSP;.\APP</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -386,6 +386,9 @@
               <FilePath>.\APP\main.cpp</FilePath>
             </File>
           </Files>
+        </Group>
+        <Group>
+          <GroupName>TASK</GroupName>
         </Group>
         <Group>
           <GroupName>BSP</GroupName>
