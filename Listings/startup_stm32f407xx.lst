@@ -882,15 +882,12 @@ ARM Macro Assembler    Page 14
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
 erwork --depend=.\objects\startup_stm32f407xx.d -o.\objects\startup_stm32f407xx
-.o -I.\RTE\Device\STM32F407VGTx -I.\RTE\RTOS -I.\RTE\_Target_1 -ID:\keil-5.24\A
-RM\PACK\ARM\CMSIS-FreeRTOS\9.1.0\CMSIS\RTOS2\FreeRTOS\Include -ID:\keil-5.24\AR
-M\PACK\ARM\CMSIS-FreeRTOS\9.1.0\Source\include -ID:\keil-5.24\ARM\PACK\ARM\CMSI
-S-FreeRTOS\9.1.0\Source\portable\RVDS\ARM_CM4F -ID:\keil-5.24\ARM\PACK\ARM\CMSI
-S\5.2.0\CMSIS\Include -ID:\keil-5.24\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers
-\CMSIS\Device\ST\STM32F4xx\Include -ID:\keil-5.24\ARM\PACK\Keil\STM32F4xx_DFP\2
-.11.0\Drivers\STM32F4xx_HAL_Driver\Inc --predefine="__UVISION_VERSION SETA 524"
- --predefine="_RTE_ SETA 1" --predefine="STM32F407xx SETA 1" --list=.\listings\
-startup_stm32f407xx.lst RTE\Device\STM32F407VGTx\startup_stm32f407xx.s
+.o -I.\RTE\Device\STM32F407VGTx -I.\RTE\_Target_1 -ID:\keil-5.24\ARM\PACK\ARM\C
+MSIS\5.2.0\CMSIS\Include -ID:\keil-5.24\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Driv
+ers\CMSIS\Device\ST\STM32F4xx\Include -ID:\keil-5.24\ARM\PACK\Keil\STM32F4xx_DF
+P\2.11.0\Drivers\STM32F4xx_HAL_Driver\Inc --predefine="__UVISION_VERSION SETA 5
+24" --predefine="_RTE_ SETA 1" --predefine="STM32F407xx SETA 1" --list=.\listin
+gs\startup_stm32f407xx.lst RTE\Device\STM32F407VGTx\startup_stm32f407xx.s
 
 
 

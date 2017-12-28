@@ -24,7 +24,7 @@ void StartDefaultTask(void* arg)
 {
     for(;;)
     {
-        vTaskDelay(100);
+        vTaskDelay(500);
         LEN_BLUE_TOGGLE();
     }
 }
