@@ -336,7 +336,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\BSP;.\APP;.\RTOS\INC</IncludePath>
+              <IncludePath>.\BSP;.\APP;.\RTOS\INC;.\LWIP\include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -391,24 +391,7 @@
           <GroupName>TASK</GroupName>
         </Group>
         <Group>
-          <GroupName>BSP</GroupName>
-          <Files>
-            <File>
-              <FileName>bsp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\BSP\bsp.c</FilePath>
-            </File>
-            <File>
-              <FileName>gpio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\BSP\gpio.c</FilePath>
-            </File>
-            <File>
-              <FileName>eth.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\BSP\eth.c</FilePath>
-            </File>
-          </Files>
+          <GroupName>LWIP</GroupName>
         </Group>
         <Group>
           <GroupName>RTOS</GroupName>
@@ -457,6 +440,26 @@
               <FileName>heap_4.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\RTOS\SRC\heap_4.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>BSP</GroupName>
+          <Files>
+            <File>
+              <FileName>bsp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\BSP\bsp.c</FilePath>
+            </File>
+            <File>
+              <FileName>gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\BSP\gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>eth.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\BSP\eth.c</FilePath>
             </File>
           </Files>
         </Group>
