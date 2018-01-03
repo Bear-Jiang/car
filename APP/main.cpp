@@ -1,18 +1,12 @@
-#include "stm32f4xx_hal.h"
-#include "FreeRTOS.h"
-#include "task.h"
-#include "gpio.h"
+#include "ledTask.h"
 
-void StartDefaultTask(void* arg);
-
-StackType_t TaskStackBuffer1[50];
-StaticTask_t TaskTCBBuffer1;
+TaskHandle_t ledTaskHandle;
 
 int main()
 {
     HAL_Init();
 
-    xTaskCreateStatic(StartDefaultTask,"led_task",50,(void *)NULL,1,TaskStackBuffer1,&TaskTCBBuffer1);
+    ledTaskHandle = xTaskCreateStatic(ledTask,"ledTask",50,(void *)NULL,1,ledTaskStackBuffer,&ledTaskTCB);
 
     vTaskStartScheduler();
     for(;;)
@@ -20,14 +14,7 @@ int main()
 }
 
 
-void StartDefaultTask(void* arg)
-{
-    for(;;)
-    {
-        vTaskDelay(500);
-        LEN_BLUE_TOGGLE();
-    }
-}
+
 
 #ifdef __cplusplus
 extern "C" {
