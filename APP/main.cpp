@@ -1,19 +1,19 @@
 #include "ledTask.h"
 #include "ethTask.h"
-
+#include "controlTask.h"
 
 TaskHandle_t ledTaskHandle;
 TaskHandle_t ethTaskHandle;
+TaskHandle_t ctlTaskHandle;
+
 
 int main()
 { 
     HAL_Init();
 
-//    ledTaskHandle = xTaskCreateStatic(ledTask,"ledTask",50,(void *)NULL,5,ledTaskStackBuffer,&ledTaskTCB);
-//    ethTaskHandle = xTaskCreateStatic(ethTask,"ethTask",50,(void *)NULL,6,ethTaskStackBuffer,&ethTaskTCB);
-    
-    xTaskCreate(ledTask,"ledTask",100,NULL,6,NULL);
-    xTaskCreate(ethTask,"ethTask",200,NULL,4,NULL);
+    xTaskCreate(ledTask,"ledTask",100,NULL,6,&ledTaskHandle);
+    xTaskCreate(ethTask,"ethTask",200,NULL,4,&ethTaskHandle);
+    xTaskCreate(controlTask,"ctlTask",50,NULL,7,&ctlTaskHandle);
     
     vTaskStartScheduler();
     for(;;)

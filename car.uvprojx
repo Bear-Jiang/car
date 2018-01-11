@@ -385,30 +385,25 @@
               <FileType>8</FileType>
               <FilePath>.\APP\main.cpp</FilePath>
             </File>
-            <File>
-              <FileName>lwip.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\APP\lwip.c</FilePath>
-            </File>
-            <File>
-              <FileName>cmsis_os.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\APP\cmsis_os.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>TASK</GroupName>
           <Files>
             <File>
+              <FileName>ledTask.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\TASK\ledTask.cpp</FilePath>
+            </File>
+            <File>
               <FileName>commanderTask.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\TASK\commanderTask.cpp</FilePath>
             </File>
             <File>
-              <FileName>ledTask.cpp</FileName>
+              <FileName>controlTask.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\TASK\ledTask.cpp</FilePath>
+              <FilePath>.\TASK\controlTask.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -810,6 +805,16 @@
               <FileType>1</FileType>
               <FilePath>.\APP\ethernetif.c</FilePath>
             </File>
+            <File>
+              <FileName>cmsis_os.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\APP\cmsis_os.c</FilePath>
+            </File>
+            <File>
+              <FileName>lwip.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\APP\lwip.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -879,6 +884,11 @@
               <FileName>eth.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\BSP\eth.c</FilePath>
+            </File>
+            <File>
+              <FileName>pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\BSP\pwm.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -951,6 +961,12 @@
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="RCC" Cvendor="Keil" Cversion="1.6.0" condition="STM32F4 HAL GPIO">
+        <package name="STM32F4xx_DFP" schemaVersion="1.3" url="http://www.keil.com/pack" vendor="Keil" version="2.11.0"/>
+        <targetInfos>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Device" Cgroup="STM32Cube HAL" Csub="TIM" Cvendor="Keil" Cversion="1.6.0" condition="STM32F4 HAL DMA">
         <package name="STM32F4xx_DFP" schemaVersion="1.3" url="http://www.keil.com/pack" vendor="Keil" version="2.11.0"/>
         <targetInfos>
           <targetInfo name="Target 1"/>
