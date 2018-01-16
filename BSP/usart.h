@@ -1,18 +1,20 @@
-#ifndef _LED_TASK_H__
-#define _LED_TASK_H__
+#ifndef _USART_H__
+#define _USART_H__
 
-
+#ifdef __cplusplus
+ extern "C" {
+#endif
+     
 /* Includes ------------------------------------------------------------------*/
-#include "FreeRTOS.h"
-#include "task.h"
-#include "gpio.h"
-#include "pwm.h"
+#include "stm32f4xx_hal.h"
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
-
 /* Exported functions ------------------------------------------------------- */
-void ledTask(void* arg);
 
-#endif  /* _LED_TASK_H__ */
+void UART_Init(void);     
+#ifdef __cplusplus
+ }
+#endif
+#endif /* _USART_H__ */
 

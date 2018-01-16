@@ -100,5 +100,7 @@ void HAL_MspInit(void)
     SystemClock_Config();
     GPIO_Init();
     pwmInit();
+    ADC1_Init();
+    I2C3_Init();
 }
 

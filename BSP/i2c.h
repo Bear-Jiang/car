@@ -1,18 +1,22 @@
-#ifndef _LED_TASK_H__
-#define _LED_TASK_H__
+#ifndef _I2C_H__
+#define _I2C_H__
 
+#ifdef __cplusplus
+ extern "C" {
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "FreeRTOS.h"
-#include "task.h"
-#include "gpio.h"
-#include "pwm.h"
+#include "stm32f4xx_hal.h"
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
+extern I2C_HandleTypeDef hi2c3;
 /* Exported macro ------------------------------------------------------------*/
-
 /* Exported functions ------------------------------------------------------- */
-void ledTask(void* arg);
+void I2C3_Init(void);
 
-#endif  /* _LED_TASK_H__ */
+#ifdef __cplusplus
+ }
+#endif
+
+#endif  /* _I2C_H__ */
 

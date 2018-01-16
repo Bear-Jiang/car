@@ -1,6 +1,6 @@
 #include "controlTask.h"
 
-uint16_t value = 250;
+uint16_t value = 500;
 
 void controlTask(void* arg)
 {

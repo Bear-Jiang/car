@@ -9,6 +9,8 @@
 #include "stm32f4xx_hal.h"
 #include "gpio.h"
 #include "pwm.h"
+#include "adc.h"
+#include "i2c.h"
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/

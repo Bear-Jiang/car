@@ -1,19 +1,24 @@
 #include "ledTask.h"
 #include "ethTask.h"
 #include "controlTask.h"
+#include "adcTask.h"
+#include "pressureTask.h"
 
 TaskHandle_t ledTaskHandle;
 TaskHandle_t ethTaskHandle;
 TaskHandle_t ctlTaskHandle;
-
+TaskHandle_t adcTaskHandle;
+TaskHandle_t pressureTaskHandle;
 
 int main()
-{ 
+{
     HAL_Init();
 
     xTaskCreate(ledTask,"ledTask",100,NULL,6,&ledTaskHandle);
     xTaskCreate(ethTask,"ethTask",200,NULL,4,&ethTaskHandle);
     xTaskCreate(controlTask,"ctlTask",50,NULL,7,&ctlTaskHandle);
+    xTaskCreate(adcTask,"adcTask",50,NULL,6,&adcTaskHandle);
+    xTaskCreate(pressureTask,"pressureTask",100,NULL,3,&pressureTaskHandle);
     
     vTaskStartScheduler();
     for(;;)

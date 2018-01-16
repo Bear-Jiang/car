@@ -1,8 +1,5 @@
 #include "ledTask.h"
 
-//StackType_t ledTaskStackBuffer[50];
-//StaticTask_t ledTaskTCB;
-
 void ledTask(void* arg)
 {
     for(;;)
