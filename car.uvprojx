@@ -440,6 +440,11 @@
               <FileType>8</FileType>
               <FilePath>.\TASK\pressureTask.cpp</FilePath>
             </File>
+            <File>
+              <FileName>T_H_Task.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\TASK\T_H_Task.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

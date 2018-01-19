@@ -3,12 +3,15 @@
 #include "controlTask.h"
 #include "adcTask.h"
 #include "pressureTask.h"
+#include "T_H_Task.h"
 
 TaskHandle_t ledTaskHandle;
 TaskHandle_t ethTaskHandle;
 TaskHandle_t ctlTaskHandle;
 TaskHandle_t adcTaskHandle;
 TaskHandle_t pressureTaskHandle;
+TaskHandle_t T_H_TaskHandle;
+
 
 int main()
 {
@@ -19,6 +22,8 @@ int main()
     xTaskCreate(controlTask,"ctlTask",50,NULL,7,&ctlTaskHandle);
     xTaskCreate(adcTask,"adcTask",50,NULL,6,&adcTaskHandle);
     xTaskCreate(pressureTask,"pressureTask",100,NULL,3,&pressureTaskHandle);
+    xTaskCreate(T_H_Task,"T_H_Task",100,NULL,3,&T_H_TaskHandle);
+    
     
     vTaskStartScheduler();
     for(;;)
