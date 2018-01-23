@@ -99,8 +99,9 @@ void HAL_MspInit(void)
     HAL_NVIC_SetPriority(PendSV_IRQn, 0, 0);
     SystemClock_Config();
     GPIO_Init();
-    pwmInit();
+    PWM_Init();
     ADC1_Init();
     I2C3_Init();
+    UART_Init();
 }
 

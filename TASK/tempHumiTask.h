@@ -20,10 +20,10 @@
 #define CLK_0()               HAL_GPIO_WritePin(GPIOE, GPIO_PIN_0, GPIO_PIN_RESET);
 #define CLK_1()               HAL_GPIO_WritePin(GPIOE, GPIO_PIN_0, GPIO_PIN_SET);     
 
-class temp_humidity_t
+class TempHumidity_t
 {
 public:
-    temp_humidity_t();
+    TempHumidity_t();
     void dataReadEnable();
     void dataWriteEnable();
     uint8_t writeByte(uint8_t value);
@@ -41,8 +41,7 @@ private:
 
 };
 
-
-void T_H_Task(void* arg);
+void tempHumiTask(void* arg);
 
 #endif  /* _T_H_TASK_H__ */
 

@@ -1,36 +1,38 @@
 #ifndef _ADC_TASK_H__
 #define _ADC_TASK_H__
 
-
 /* Includes ------------------------------------------------------------------*/
 #include "FreeRTOS.h"
 #include "task.h"
+#include "queue.h"
 #include "adc.h"
 /* Exported types ------------------------------------------------------------*/
 
-class power_t
+struct PowerMsg_t
+{
+    float current;
+    float voltage;
+};
+
+class Power_t
 {
 public:
-    power_t();
-//    float getCurrent(){return msg.current;}
-//    float getVoltage(){return msg.voltage;}
+    Power_t();
+    float getCurrent(){return message_data.current;}
+    float getVoltage(){return message_data.voltage;}
     void startCov(void);
     void sendToCommander(void);
-    void sendToRemote(void);
     friend void adcConvCpltCallback(void);
 private:
-//    power_msg msg;
-    uint16_t buf[2];
-    uint8_t sendBuf[15];
+    PowerMsg_t message_data;
+    uint16_t adc_buf[2];
 };
 
 /* Exported constants --------------------------------------------------------*/
+extern QueueHandle_t power_queue_handle;
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void adcTask(void* argument);
-
-
-
+void powerTask(void* argument);
 
 #endif  /* _ADC_TASK_H__ */
 

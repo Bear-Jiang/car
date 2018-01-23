@@ -5,13 +5,32 @@
 /* Includes ------------------------------------------------------------------*/
 #include "FreeRTOS.h"
 #include "task.h"
+#include "queue.h"
 #include "gpio.h"
+#include "usart.h"
 /* Exported types ------------------------------------------------------------*/
-/* Exported constants --------------------------------------------------------*/
-extern StackType_t compassTaskStackBuffer[50];
-extern StaticTask_t compassTaskTCB;
-/* Exported macro ------------------------------------------------------------*/
+struct CompassMsg_t
+{
+    float heading;
+    float roll;
+    float pitch;
+};
 
+class Compass_t
+{
+public:
+    Compass_t();
+    void readAngle();
+    void sendToCommander(void);
+    friend void unpackUART5_Data(uint8_t* p);
+private:
+    uint8_t send_buf[20]; 
+    CompassMsg_t angle;
+};
+
+/* Exported constants --------------------------------------------------------*/
+extern QueueHandle_t compass_queue_handle;
+/* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 void compassTask(void* arg);
 

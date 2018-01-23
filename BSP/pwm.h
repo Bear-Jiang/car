@@ -13,7 +13,7 @@ extern TIM_HandleTypeDef htim1;
 extern TIM_HandleTypeDef htim4;
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void pwmInit(void);
+void PWM_Init(void);
 
 #ifdef __cplusplus
  }

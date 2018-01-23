@@ -9,9 +9,12 @@
 #include "stm32f4xx_hal.h"
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
+extern UART_HandleTypeDef huart5;//For compass
+extern UART_HandleTypeDef huart6;     
+     
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-
+void unpackUART5_Data(uint8_t* p);
 void UART_Init(void);     
 #ifdef __cplusplus
  }

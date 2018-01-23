@@ -66,7 +66,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-    HAL_NVIC_SetPriority(ADC_IRQn,1,1);
+    HAL_NVIC_SetPriority(ADC_IRQn,10,10);
     HAL_NVIC_EnableIRQ(ADC_IRQn);
       
     __HAL_RCC_DMA2_CLK_ENABLE();  

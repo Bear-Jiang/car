@@ -1,11 +1,11 @@
 //T for temprature;H for humidity;
-#include "T_H_Task.h"
+#include "tempHumiTask.h"
 
-static temp_humidity_t sens;
+static TempHumidity_t sens;
 uint16_t humi,temp;
 uint8_t checksum;
 uint8_t error=0;
-void T_H_Task(void* arg)
+void tempHumiTask(void* arg)
 {
     vTaskDelay(50);
     sens.connectionReset();
@@ -21,14 +21,14 @@ void T_H_Task(void* arg)
 }
 
 
-temp_humidity_t::temp_humidity_t()
+TempHumidity_t::TempHumidity_t()
 {
     GPIO_InitStruct.Pin = GPIO_PIN_1;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_MEDIUM;
 }
 
 
-void temp_humidity_t::dataReadEnable()
+void TempHumidity_t::dataReadEnable()
 {
     GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
     GPIO_InitStruct.Pull = GPIO_PULLUP;
@@ -36,14 +36,14 @@ void temp_humidity_t::dataReadEnable()
 
 }
 
-void temp_humidity_t::dataWriteEnable()
+void TempHumidity_t::dataWriteEnable()
 {
     GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
     GPIO_InitStruct.Pull = GPIO_PULLUP;
     HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 }
 
-uint8_t temp_humidity_t::writeByte(uint8_t value)
+uint8_t TempHumidity_t::writeByte(uint8_t value)
 {
     uint8_t error = 0;
     dataWriteEnable();
@@ -72,7 +72,7 @@ uint8_t temp_humidity_t::writeByte(uint8_t value)
     return error;
 }
 
-uint8_t temp_humidity_t::readByte(uint8_t ack)
+uint8_t TempHumidity_t::readByte(uint8_t ack)
 {
     uint8_t val = 0;
     dataWriteEnable();
@@ -100,7 +100,7 @@ uint8_t temp_humidity_t::readByte(uint8_t ack)
     
 }
 
-void temp_humidity_t::transStart()
+void TempHumidity_t::transStart()
 {
     dataWriteEnable();
     W_DATA(1);
@@ -119,7 +119,7 @@ void temp_humidity_t::transStart()
     CLK_0();
 }
 
-void temp_humidity_t::connectionReset()
+void TempHumidity_t::connectionReset()
 {
     dataWriteEnable();
     W_DATA(1);
@@ -133,7 +133,7 @@ void temp_humidity_t::connectionReset()
     transStart();
 }
 
-uint8_t temp_humidity_t::softReset()
+uint8_t TempHumidity_t::softReset()
 {
     uint8_t error = 0;
     connectionReset();
@@ -141,7 +141,7 @@ uint8_t temp_humidity_t::softReset()
     return error;
 }
 
-uint8_t temp_humidity_t::readStatusReg(uint8_t* value,uint8_t* checksum)
+uint8_t TempHumidity_t::readStatusReg(uint8_t* value,uint8_t* checksum)
 {
     uint8_t error = 0;
     transStart();
@@ -151,7 +151,7 @@ uint8_t temp_humidity_t::readStatusReg(uint8_t* value,uint8_t* checksum)
     return error;
 }
 
-uint8_t temp_humidity_t::writeStatusReg(uint8_t* value)
+uint8_t TempHumidity_t::writeStatusReg(uint8_t* value)
 {
     uint8_t error = 0;
     transStart();
@@ -160,7 +160,7 @@ uint8_t temp_humidity_t::writeStatusReg(uint8_t* value)
     return error;
 }
 
-uint8_t temp_humidity_t::mesure(uint8_t* value,uint8_t* checksum,uint8_t mode)
+uint8_t TempHumidity_t::mesure(uint8_t* value,uint8_t* checksum,uint8_t mode)
 {
     uint8_t error = 0;
     transStart();

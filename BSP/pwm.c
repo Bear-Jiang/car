@@ -7,7 +7,7 @@ void MX_TIM1_Init(void);
 void MX_TIM4_Init(void);
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef* htim);
 
-static void pwmStart(void)
+static void PWM_Start(void)
 {
     HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_2);
     HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_3);
@@ -19,11 +19,11 @@ static void pwmStart(void)
     HAL_TIM_PWM_Start(&htim4,TIM_CHANNEL_4);
 }
 
-void pwmInit(void)
+void PWM_Init(void)
 {
     MX_TIM1_Init();
     MX_TIM4_Init();
-    pwmStart();
+    PWM_Start();
 }
 
 /* TIM1 init function */

@@ -1,29 +1,14 @@
-#include "ledTask.h"
-#include "ethTask.h"
-#include "controlTask.h"
-#include "adcTask.h"
-#include "pressureTask.h"
-#include "T_H_Task.h"
-
-TaskHandle_t ledTaskHandle;
-TaskHandle_t ethTaskHandle;
-TaskHandle_t ctlTaskHandle;
-TaskHandle_t adcTaskHandle;
-TaskHandle_t pressureTaskHandle;
-TaskHandle_t T_H_TaskHandle;
-
+#include "FreeRTOS.h"
+#include "task.h"
+#include "stm32f4xx_hal.h"
+#include "commanderTask.h"
+TaskHandle_t commander_task_handle;
 
 int main()
 {
     HAL_Init();
 
-    xTaskCreate(ledTask,"ledTask",100,NULL,6,&ledTaskHandle);
-    xTaskCreate(ethTask,"ethTask",200,NULL,4,&ethTaskHandle);
-    xTaskCreate(controlTask,"ctlTask",50,NULL,7,&ctlTaskHandle);
-    xTaskCreate(adcTask,"adcTask",50,NULL,6,&adcTaskHandle);
-    xTaskCreate(pressureTask,"pressureTask",100,NULL,3,&pressureTaskHandle);
-    xTaskCreate(T_H_Task,"T_H_Task",100,NULL,3,&T_H_TaskHandle);
-    
+    xTaskCreate(commanderTask,"commanderTask",200,NULL,10,&commander_task_handle);
     
     vTaskStartScheduler();
     for(;;)

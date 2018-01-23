@@ -6,8 +6,8 @@ UART_HandleTypeDef huart6;
 DMA_HandleTypeDef hdma_uart5_rx;
 DMA_HandleTypeDef hdma_usart6_rx;
 
-static uint8_t uart5ReceiveBuf[10] = {1,2,3};
-static uint8_t uart6ReceiveBuf[10] = {1,2,3};
+static uint8_t uart5_receive_buf[20] = {1,2,3};
+static uint8_t uart6_receive_buf[20] = {1,2,3};
 
 /* UART5 init function */
 void UART5_Init(void)
@@ -25,7 +25,7 @@ void UART5_Init(void)
     {
     }
     __HAL_UART_ENABLE_IT(&huart5,UART_IT_IDLE);
-    HAL_UART_Receive_DMA(&huart5, uart5ReceiveBuf, 10);
+    HAL_UART_Receive_DMA(&huart5, uart5_receive_buf, 20);
 }
 
 /* USART6 init function */
@@ -44,7 +44,7 @@ void USART6_Init(void)
     {
     }
     __HAL_UART_ENABLE_IT(&huart6,UART_IT_IDLE);
-    HAL_UART_Receive_DMA(&huart6, uart6ReceiveBuf, 256);
+    HAL_UART_Receive_DMA(&huart6, uart6_receive_buf, 20);
 }
 
 /**
@@ -105,7 +105,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
     __HAL_LINKDMA(huart,hdmarx,hdma_uart5_rx);
 
     /* UART5 interrupt Init */
-    HAL_NVIC_SetPriority(UART5_IRQn, 0, 0);
+    HAL_NVIC_SetPriority(UART5_IRQn, 6, 6);
     HAL_NVIC_EnableIRQ(UART5_IRQn);
   /* USER CODE BEGIN UART5_MspInit 1 */
 
@@ -164,7 +164,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
   * @brief  This function handles UART5 data array.
   * @retval None
   */
-__weak void unpackUART5_Data()
+__weak void unpackUART5_Data(uint8_t* p)
 {
     /* NOTE: This function Should not be modified, when the callback is needed,
            the unpackData could be implemented in the user file
@@ -174,7 +174,10 @@ __weak void unpackUART5_Data()
 
 __weak void unpackUART6_Data()
 {
-    
+    /* NOTE: This function Should not be modified, when the callback is needed,
+           the unpackData could be implemented in the user file
+   */ 
+    return;  
 }
 
 /* Global UART init function */
@@ -188,10 +191,10 @@ void UART5_IRQHandler()
 {
     if(__HAL_UART_GET_FLAG(&huart5,UART_FLAG_IDLE))
     {
-//        __HAL_UART_CLEAR_IDLEFLAG(&huart1);
-//        unpackUSART1_Data(uart1ReceiveBuf);
-//        __HAL_DMA_DISABLE(&hdma_usart1_rx);
-//        __HAL_DMA_ENABLE(&hdma_usart1_rx);
+        __HAL_UART_CLEAR_IDLEFLAG(&huart5);
+        unpackUART5_Data(uart5_receive_buf);
+        __HAL_DMA_DISABLE(&hdma_uart5_rx);
+        __HAL_DMA_ENABLE(&hdma_uart5_rx);
     }
     HAL_UART_IRQHandler(&huart5);
 }
@@ -200,7 +203,7 @@ void USART6_IRQHandler()
 {
     if(__HAL_UART_GET_FLAG(&huart6,UART_FLAG_IDLE))
     {
-//        __HAL_UART_CLEAR_IDLEFLAG(&huart1);
+        __HAL_UART_CLEAR_IDLEFLAG(&huart6);
 //        unpackUSART1_Data(uart1ReceiveBuf);
 //        __HAL_DMA_DISABLE(&hdma_usart1_rx);
 //        __HAL_DMA_ENABLE(&hdma_usart1_rx);
