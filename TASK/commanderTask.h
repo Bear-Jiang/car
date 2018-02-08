@@ -33,11 +33,22 @@ private:
     struct udp_pcb *upcb;
     struct pbuf *p;
     uint8_t send_buf[30];
-    uint8_t receive_buf[30];
 };
 
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
+
+/****************remote message id*****************/
+#define MSG_TEMP_HUMI_ID    0x00
+#define MSG_PRESSURE_ID     0x01
+#define MSG_COMPASS_ID      0x02
+#define MSG_POWER_ID        0x03
+#define MSG_CMD_ID          0x04
+#define MSG_GIMBAL_ID       0x05
+#define MSG_LIGHT_ID        0x06
+#define MSG_PID_ID          0x07
+#define MSG_STATE_ID        0x08
+
 /* Exported functions ------------------------------------------------------- */
 void commanderTask(void* arg);
 

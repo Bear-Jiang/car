@@ -2,21 +2,19 @@
 #include "tempHumiTask.h"
 
 static TempHumidity_t sens;
-uint16_t humi,temp;
-uint8_t checksum;
-uint8_t error=0;
+QueueHandle_t temp_humi_queue_handle;
+
 void tempHumiTask(void* arg)
 {
-    vTaskDelay(50);
+    temp_humi_queue_handle = xQueueCreate(1,sizeof(TempHumiMsg_t));
+//    vTaskDelay(50);
     sens.connectionReset();
-    vTaskDelay(50);
+//    vTaskDelay(50);
     for(;;)
     {
-        error = sens.mesure((uint8_t*)&humi,&checksum,0);
-        if(error)
-        {
-            sens.connectionReset();
-        }
+        sens.readTemp();
+        sens.readHumi();
+        sens.sendToCommander();
     }
 }
 
@@ -27,6 +25,37 @@ TempHumidity_t::TempHumidity_t()
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_MEDIUM;
 }
 
+void TempHumidity_t::readTemp()
+{
+    error = mesure((uint8_t*)&temp,&checksum,0);
+    if(error)
+    {
+        connectionReset();
+    }
+    else
+    {
+        message_data.temp = temp*0.01-40.1;
+    }
+}
+
+void TempHumidity_t::readHumi()
+{
+    mesure((uint8_t*)&humi,&checksum,1);
+    if(error)
+    {
+        connectionReset();
+    }
+    else
+    {
+        float linear = -2.0468 + 0.0367 * humi + -1.5955e-6 * humi * humi;
+        message_data.humi = (message_data.temp - 25)*(0.01+0.00008*humi)+linear;
+    }
+}
+
+void TempHumidity_t::sendToCommander(void)
+{
+    xQueueSend(temp_humi_queue_handle,(void*)&message_data,NULL);
+}
 
 void TempHumidity_t::dataReadEnable()
 {

@@ -8,7 +8,17 @@ void compassTask(void* arg)
     compass_queue_handle = xQueueCreate(1,sizeof(CompassMsg_t));
     for(;;)
     {
-        compass.readAngle();
+        if(compass.isCali())
+        {
+            compass.readAngle();
+        }
+        else
+        {
+            if(compass.isCaliStart())
+            {
+                compass.startCali();
+            }
+        }
         vTaskDelay(500);
     }
     
@@ -16,6 +26,8 @@ void compassTask(void* arg)
 
 Compass_t::Compass_t()
 {
+    caliFlag = true;
+    caliStart = false;
 }
 
 void Compass_t::readAngle()
@@ -26,6 +38,18 @@ void Compass_t::readAngle()
     send_buf[3] = 0x04;
     send_buf[4] = 0x08;
     HAL_UART_Transmit_IT(&huart5,send_buf,5);
+    return;
+}
+
+void Compass_t::startCali()
+{
+    send_buf[0] = 0x77;
+    send_buf[1] = 0x04;
+    send_buf[2] = 0x00;
+    send_buf[3] = 0x63;
+    send_buf[4] = 0x67;
+    HAL_UART_Transmit_IT(&huart5,send_buf,5);
+    caliStart = true;
     return;
 }
 
@@ -51,9 +75,14 @@ void unpackUART5_Data(uint8_t* p)
         compass.angle.heading = flag* ((p[10]&0x0f) * 100.0 \
                                 + (p[11]&0x0f)+((p[11]>>4)&0x0f) * 10.0 \
                                 + (p[12]&0x0f) * 0.1+((p[12]>>4)&0x0f) * 0.01);
-        
+        compass.sendToCommander();
     }
-    compass.sendToCommander();
+    else if(p[3] == 0x88)
+    {
+        if(p[4] == 0x00)
+            compass.caliFlag = true;
+            
+    }
     
 }
 

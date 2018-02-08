@@ -388,7 +388,17 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>TASK</GroupName>
+          <GroupName>TASK/Eth</GroupName>
+          <Files>
+            <File>
+              <FileName>ethTask.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\TASK\ethTask.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>TASK/highLevel</GroupName>
           <Files>
             <File>
               <FileName>commanderTask.cpp</FileName>
@@ -403,17 +413,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>TASK/Eth</GroupName>
-          <Files>
-            <File>
-              <FileName>ethTask.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\TASK\ethTask.cpp</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>TASK/SensorTask</GroupName>
+          <GroupName>TASK/lowLevel</GroupName>
           <Files>
             <File>
               <FileName>gpsTask.cpp</FileName>

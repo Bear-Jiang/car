@@ -9,7 +9,7 @@ void powerTask(void* argument)
     portTickType tick = xTaskGetTickCount();
     for(;;)
     {
-        vTaskDelayUntil(&tick,400);
+        vTaskDelayUntil(&tick,500);
 
         power.startCov();      
     }

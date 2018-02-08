@@ -18,7 +18,13 @@ TaskHandle_t eth_task_handle;
 
 static PowerMsg_t power_data;
 static CompassMsg_t compass_data;
+static TempHumiMsg_t temp_humi_data;
+static PressureMsg_t pressure_data;
+
 static Remote_t remote_control;
+
+static uint8_t receive_buf[30];
+//static SemaphoreHandle_t receiveDataSem;
 
 void commanderTask(void* arg)
 {
@@ -31,32 +37,75 @@ void commanderTask(void* arg)
     xTaskCreate(tempHumiTask,"tempHumiTask",100,NULL,3,&temp_humi_task_handle);
     xTaskCreate(compassTask,"compassTask",100,NULL,4,&compass_task_handle);
 
+//    receiveDataSem = xSemaphoreCreateBinary();
+    
     vTaskDelay(1000);//Wait for subtask ready
     remote_control.udpInit();
     for(;;)
     {
         if(xQueueReceive(power_queue_handle,(void*)&power_data,0) == pdPASS)
         {
-            power_data.current = 100.12345;
-            power_data.voltage = 200;
-            remote_control.sendMsg(3,(uint8_t*)&power_data,sizeof(power_data));
+            remote_control.sendMsg(MSG_POWER_ID,(uint8_t*)&power_data,sizeof(power_data));
         }
         if(xQueueReceive(compass_queue_handle,(void*)&compass_data,0) == pdPASS)
         {
-            
+            remote_control.sendMsg(MSG_COMPASS_ID,(uint8_t*)&compass_data,sizeof(compass_data));
         }
-
-        vTaskDelay(500);
+        if((temp_humi_queue_handle != NULL) && (xQueueReceive(temp_humi_queue_handle,(void*)&temp_humi_data,0) == pdPASS))
+        {
+            remote_control.sendMsg(MSG_TEMP_HUMI_ID,(uint8_t*)&temp_humi_data,sizeof(temp_humi_data));
+        }
+        if((pressure_queue_handle != NULL) && (xQueueReceive(pressure_queue_handle,(void*)&pressure_data,0) == pdPASS))
+        {
+            remote_control.sendMsg(MSG_PRESSURE_ID,(uint8_t*)&pressure_data,sizeof(pressure_data));
+        }
+        
+        
+        
+        vTaskDelay(10);
     }
+}
+
+__weak void unpackLedData(uint8_t* p)
+{   
+}
+
+__weak void unpackGimbalData(uint8_t* p)
+{   
+}
+
+__weak void unpackControlData(uint8_t* p)
+{
 }
 
 void udp_receive_callback(void *arg, struct udp_pcb *upcb, struct pbuf *p, const ip_addr_t *addr, u16_t port)
 {
-//    u16_t a = p->len;
-//    memcpy((void*)recieveBuffer,p->payload,p->len);
-    udp_sendto(upcb, p,addr,port);
+    int len = p->len;
+    memcpy((void*)receive_buf,p->payload,p->len);
+//    udp_sendto(upcb, p,addr,port);
     pbuf_free(p);
     
+    if((receive_buf[0] == 0xfe) && (receive_buf[1] == len) && (receive_buf[len-1] == 0x0a))
+    {
+        switch(receive_buf[3])
+        {
+            case MSG_GIMBAL_ID:
+            {
+                unpackGimbalData(receive_buf+4);
+                break;
+            }
+            case MSG_LIGHT_ID:
+            {
+                unpackLedData(receive_buf+4);
+                break;
+            }
+            case MSG_CMD_ID:
+            {
+                unpackControlData(receive_buf+4);
+                break;
+            }
+        }
+    }
 }
 
 Remote_t::Remote_t()

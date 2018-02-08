@@ -21,10 +21,15 @@ class Compass_t
 public:
     Compass_t();
     void readAngle();
+    void startCali();
+    bool isCali(){return caliFlag;};
+    bool isCaliStart(){return caliStart;};
     void sendToCommander(void);
     friend void unpackUART5_Data(uint8_t* p);
 private:
     uint8_t send_buf[20]; 
+    bool caliFlag;
+    bool caliStart;
     CompassMsg_t angle;
 };
 
