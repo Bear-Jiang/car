@@ -6,8 +6,8 @@ UART_HandleTypeDef huart6;
 DMA_HandleTypeDef hdma_uart5_rx;
 DMA_HandleTypeDef hdma_usart6_rx;
 
-static uint8_t uart5_receive_buf[20] = {1,2,3};
-static uint8_t uart6_receive_buf[20] = {1,2,3};
+static uint8_t uart5_receive_buf[30] = {1,2,3};
+static uint8_t uart6_receive_buf[30] = {1,2,3};
 
 /* UART5 init function */
 void UART5_Init(void)

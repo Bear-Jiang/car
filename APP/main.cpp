@@ -7,10 +7,10 @@ TaskHandle_t commander_task_handle;
 int main()
 {
     HAL_Init();
-
-    xTaskCreate(commanderTask,"commanderTask",200,NULL,10,&commander_task_handle);
     
+    xTaskCreate(commanderTask,"commanderTask",200,NULL,10,&commander_task_handle);
     vTaskStartScheduler();
+    
     for(;;)
     {}
 }
@@ -24,8 +24,6 @@ void ETH_IRQHandler(void);
 }
 #endif
     
-
-
 void SysTick_Handler(void)
 {
     HAL_IncTick();

@@ -19,7 +19,7 @@ void controlTask(void* arg)
     {
         motor.getSpeedCount();
         motor.setSpeed(f_b_speed + l_r_speed, f_b_speed - l_r_speed);
-        vTaskDelay(100);
+        vTaskDelay(250);
     }
 }
 

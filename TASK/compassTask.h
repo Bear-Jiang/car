@@ -19,17 +19,23 @@ struct CompassMsg_t
 class Compass_t
 {
 public:
+    struct
+    {
+        bool flag;
+        bool start;
+        bool finish;
+        bool factory;
+    }cali;
+
     Compass_t();
     void readAngle();
     void startCali();
-    bool isCali(){return caliFlag;};
-    bool isCaliStart(){return caliStart;};
+    void saveCali();
+    void factory();
     void sendToCommander(void);
     friend void unpackUART5_Data(uint8_t* p);
 private:
     uint8_t send_buf[20]; 
-    bool caliFlag;
-    bool caliStart;
     CompassMsg_t angle;
 };
 
