@@ -12,7 +12,6 @@ static uint8_t uart6_receive_buf[30] = {1,2,3};
 /* UART5 init function */
 void UART5_Init(void)
 {
-
     huart5.Instance = UART5;
     huart5.Init.BaudRate = 9600;
     huart5.Init.WordLength = UART_WORDLENGTH_8B;
@@ -25,7 +24,7 @@ void UART5_Init(void)
     {
     }
     __HAL_UART_ENABLE_IT(&huart5,UART_IT_IDLE);
-    HAL_UART_Receive_DMA(&huart5, uart5_receive_buf, 20);
+    HAL_UART_Receive_DMA(&huart5, uart5_receive_buf, 30);
 }
 
 /* USART6 init function */

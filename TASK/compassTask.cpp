@@ -17,12 +17,14 @@ void compassTask(void* arg)
             if(!compass.cali.start)
             {
                 compass.startCali();
-                compass.cali.start = true;
             }
             if(compass.cali.finish)
             {
+                compass.stopCali();
+            }
+            if(compass.cali.save)
+            {
                 compass.saveCali();
-                compass.cali.finish = false;
             }
         }
         if(compass.cali.factory)
@@ -41,6 +43,7 @@ Compass_t::Compass_t()
     cali.start = false;
     cali.finish = false;
     cali.factory = false;
+    cali.save = false;
 }
 
 void Compass_t::readAngle()
@@ -61,6 +64,17 @@ void Compass_t::startCali()
     send_buf[2] = 0x00;
     send_buf[3] = 0x60;
     send_buf[4] = 0x64;
+    HAL_UART_Transmit_IT(&huart5,send_buf,5);
+    return;
+}
+
+void Compass_t::stopCali()
+{
+    send_buf[0] = 0x77;
+    send_buf[1] = 0x04;
+    send_buf[2] = 0x00;
+    send_buf[3] = 0x12;
+    send_buf[4] = 0x16;
     HAL_UART_Transmit_IT(&huart5,send_buf,5);
     return;
 }
@@ -90,6 +104,8 @@ void Compass_t::sendToCommander(void)
     xQueueSendFromISR(compass_queue_handle,(void*)&angle,NULL);
 }
 
+int test;
+
 void unpackUART5_Data(uint8_t* p)
 {
     int8_t flag = 0;
@@ -116,14 +132,25 @@ void unpackUART5_Data(uint8_t* p)
             compass.cali.flag = true;
             compass.cali.start = false;
             compass.cali.finish = false;
+            compass.cali.save = false;
         }
         else if(p[3] == 0x26)
         {
-            compass.cali.finish = true;
+//            compass.cali.finish = true;
+            test++;
         }
         else if(p[3] == 0x8e)
         {
             compass.cali.factory = false;
+        }
+        else if(p[3] == 0x60)
+        {
+            compass.cali.start = true;;
+        }
+        else if(p[3] == 0x72)//finish cali
+        {
+            compass.cali.finish = false;
+            compass.cali.save = true;
         }
     }
     

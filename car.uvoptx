@@ -118,6 +118,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
+          <Name>/</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -151,7 +152,7 @@
           <Type>0</Type>
           <LineNumber>97</LineNumber>
           <EnabledFlag>0</EnabledFlag>
-          <Address>134269832</Address>
+          <Address>134269872</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -165,9 +166,9 @@
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
-          <LineNumber>122</LineNumber>
+          <LineNumber>19</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134271952</Address>
+          <Address>134236488</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -176,39 +177,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>.\TASK\compassTask.cpp</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\car\TASK/compassTask.cpp\122</Expression>
-        </Bp>
-        <Bp>
-          <Number>2</Number>
-          <Type>0</Type>
-          <LineNumber>8</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134236452</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>.\TASK\compassTask.cpp</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\car\TASK/compassTask.cpp\8</Expression>
-        </Bp>
-        <Bp>
-          <Number>3</Number>
-          <Type>0</Type>
-          <LineNumber>118</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134271942</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>.\TASK\compassTask.cpp</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\car\TASK/compassTask.cpp\118</Expression>
+          <Expression>\\car\TASK/compassTask.cpp\19</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -255,12 +224,17 @@
         <Ww>
           <count>8</count>
           <WinNumber>1</WinNumber>
-          <ItemText>uart5_receive_buf</ItemText>
+          <ItemText>uart5_receive_buf,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>9</count>
           <WinNumber>1</WinNumber>
           <ItemText>compass,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>10</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>test,0x0A</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>
@@ -316,7 +290,7 @@
 
   <Group>
     <GroupName>APP</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -356,7 +330,7 @@
 
   <Group>
     <GroupName>TASK/highLevel</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -388,7 +362,7 @@
 
   <Group>
     <GroupName>TASK/lowLevel</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1500,7 +1474,7 @@
 
   <Group>
     <GroupName>BSP</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
