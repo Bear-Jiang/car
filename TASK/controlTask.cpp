@@ -8,7 +8,6 @@ static Motor_t motor;
 float f_b_speed = 0;
 float l_r_speed = 0;
 
-
 void controlTask(void* arg)
 {
     led.init();
@@ -18,13 +17,17 @@ void controlTask(void* arg)
     for(;;)
     {
         motor.getSpeedCount();
-        motor.setSpeed(f_b_speed + l_r_speed, f_b_speed - l_r_speed);
-        vTaskDelay(250);
+        motor.setSpeed(-f_b_speed - l_r_speed, f_b_speed - l_r_speed);
+        vTaskDelay(500);
     }
 }
 
-
 /*********************************Call back************************************/
+void unpackControlData(uint8_t* p)
+{
+    f_b_speed = (p[0] - p[1]) * 1990;
+    l_r_speed = (p[2] - p[3]) * 1990;
+}
 
 void unpackLedData(uint8_t* p)
 {
@@ -40,15 +43,7 @@ void unpackGimbalData(uint8_t* p)
     gimbal.setPitch(p[1]);
 }
 
-void unpackControlData(uint8_t* p)
-{
-    f_b_speed = (p[0] - p[1]) * 1800;
-    l_r_speed = (p[2] - p[3]) * 1800;
-}
-
-
 /*********************************For gimbal***********************************/
-
 Gimbal_t::Gimbal_t(uint16_t yaw, uint16_t pitch)
 :yaw_mid(yaw), pitch_zero(pitch)
 {   
@@ -71,7 +66,6 @@ void Gimbal_t::setYaw(uint8_t v)//0--100
 }
 
 /*********************************For led**************************************/
-
 Led_t::Led_t()
 {
 }
@@ -102,13 +96,12 @@ void Led_t::setIntensity(uint8_t id, uint16_t value)
 }
 
 /*********************************For motor************************************/
-
 Motor_t::Motor_t()
 {
     r_speed = 0;
     l_speed = 0;
 }
-    
+
 void Motor_t::init()
 {
     __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, 0);//L_PWM
@@ -124,7 +117,7 @@ void Motor_t::getSpeedCount()
 }
 
 void Motor_t::setSpeed(float left, float right)
-{
+{   
     if(left >= 0)
     {
         HAL_GPIO_WritePin(GPIOE, GPIO_PIN_9, GPIO_PIN_SET);
@@ -144,9 +137,6 @@ void Motor_t::setSpeed(float left, float right)
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);
         right*=-1;
     }
-    
-    left = left>=2000?2000:left;
-    right = right>=2000?2000:right;
     
     __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, (uint16_t)left);//L_PWM
     __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, (uint16_t)right);//R_PWM

@@ -24,7 +24,6 @@ static PressureMsg_t pressure_data;
 static Remote_t remote_control;
 
 static uint8_t receive_buf[30];
-//static SemaphoreHandle_t receiveDataSem;
 
 void commanderTask(void* arg)
 {
@@ -36,8 +35,6 @@ void commanderTask(void* arg)
     xTaskCreate(pressureTask,"pressureTask",100,NULL,3,&pressure_task_handle);
     xTaskCreate(tempHumiTask,"tempHumiTask",100,NULL,3,&temp_humi_task_handle);
     xTaskCreate(compassTask,"compassTask",100,NULL,4,&compass_task_handle);
-
-//    receiveDataSem = xSemaphoreCreateBinary();
     
     vTaskDelay(1000);//Wait for subtask ready
     remote_control.udpInit();
@@ -78,6 +75,10 @@ __weak void unpackControlData(uint8_t* p)
 {
 }
 
+__weak void unpackCompassData(uint8_t* p)
+{
+}
+
 void udp_receive_callback(void *arg, struct udp_pcb *upcb, struct pbuf *p, const ip_addr_t *addr, u16_t port)
 {
     int len = p->len;
@@ -102,6 +103,11 @@ void udp_receive_callback(void *arg, struct udp_pcb *upcb, struct pbuf *p, const
             case MSG_CMD_ID:
             {
                 unpackControlData(receive_buf+4);
+                break;
+            }
+            case MSG_COMPASS_ID:
+            {
+                unpackCompassData(receive_buf+4);
                 break;
             }
         }

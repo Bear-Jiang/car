@@ -15,6 +15,7 @@ extern UART_HandleTypeDef huart6;
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 void unpackUART5_Data(uint8_t* p);
+void unpackUART6_Data(uint8_t* p);
 void UART_Init(void);     
 #ifdef __cplusplus
  }

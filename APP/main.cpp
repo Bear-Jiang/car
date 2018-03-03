@@ -2,6 +2,7 @@
 #include "task.h"
 #include "stm32f4xx_hal.h"
 #include "commanderTask.h"
+
 TaskHandle_t commander_task_handle;
 
 int main()
@@ -35,10 +36,10 @@ void SysTick_Handler(void)
 extern ETH_HandleTypeDef heth;
 void ETH_IRQHandler(void)
 {
-  HAL_ETH_IRQHandler(&heth);
+    HAL_ETH_IRQHandler(&heth);
 }
 
-/******************以下屏蔽部分在使能动态分配任务时需要取消注释****************/
+/******************以下屏蔽部分在使能静态分配任务时需要取消注释****************/
 
 //#ifdef __cplusplus
 //extern "C" {

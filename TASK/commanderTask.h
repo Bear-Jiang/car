@@ -52,8 +52,6 @@ private:
 /* Exported functions ------------------------------------------------------- */
 void commanderTask(void* arg);
 
-
-
 #endif  /* _COMMANDER_TASK_H__ */
 
 

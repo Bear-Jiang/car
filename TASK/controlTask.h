@@ -1,14 +1,12 @@
 #ifndef _CONTROL_TASK_H__
 #define _CONTROL_TASK_H__
 
-
 /* Includes ------------------------------------------------------------------*/
 #include "FreeRTOS.h"
 #include "task.h"
 #include "pwm.h"
+
 /* Exported types ------------------------------------------------------------*/
-
-
 class Motor_t
 {
 public:
@@ -19,7 +17,7 @@ public:
     friend void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin);
 private:
     float r_speed, l_speed;
-    float r_count, l_count;
+    volatile float r_count, l_count;
 };
 
 class Gimbal_t
@@ -42,12 +40,13 @@ public:
     void setIntensity(uint8_t id, uint16_t value);
 private:
     
-
 };
 
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
-
+#define CONSTRAIN(x,max,min) (x>max?max:(x<min?min:x))
+#define MAX(a,b)             (a>b?a:b)
+#define MIN(a,b)             (a<b?a:b)
 /* Exported functions ------------------------------------------------------- */
 void controlTask(void* arg);
 

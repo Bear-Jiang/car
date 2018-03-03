@@ -23,22 +23,18 @@ public:
     {
         bool flag;
         bool start;
-        bool finish;
         bool save;
-        bool factory;
     }cali;
 
     Compass_t();
     void readAngle();
     void startCali();
-    void stopCali();
     void saveCali();
-    void factory();
     void sendToCommander(void);
     friend void unpackUART5_Data(uint8_t* p);
 private:
-    uint8_t send_buf[20]; 
-    CompassMsg_t angle;
+    uint8_t send_buf[20];
+    CompassMsg_t message_data;
 };
 
 /* Exported constants --------------------------------------------------------*/

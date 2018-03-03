@@ -7,7 +7,7 @@ DMA_HandleTypeDef hdma_uart5_rx;
 DMA_HandleTypeDef hdma_usart6_rx;
 
 static uint8_t uart5_receive_buf[30] = {1,2,3};
-static uint8_t uart6_receive_buf[30] = {1,2,3};
+static uint8_t uart6_receive_buf[256] = {1,2,3};
 
 /* UART5 init function */
 void UART5_Init(void)
@@ -30,9 +30,8 @@ void UART5_Init(void)
 /* USART6 init function */
 void USART6_Init(void)
 {
-
     huart6.Instance = USART6;
-    huart6.Init.BaudRate = 115200;
+    huart6.Init.BaudRate = 9600;
     huart6.Init.WordLength = UART_WORDLENGTH_8B;
     huart6.Init.StopBits = UART_STOPBITS_1;
     huart6.Init.Parity = UART_PARITY_NONE;
@@ -43,7 +42,7 @@ void USART6_Init(void)
     {
     }
     __HAL_UART_ENABLE_IT(&huart6,UART_IT_IDLE);
-    HAL_UART_Receive_DMA(&huart6, uart6_receive_buf, 20);
+    HAL_UART_Receive_DMA(&huart6, uart6_receive_buf, 256);
 }
 
 /**
@@ -149,7 +148,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
     __HAL_LINKDMA(huart,hdmarx,hdma_usart6_rx);  
     
     /* USART6 interrupt Init */
-    HAL_NVIC_SetPriority(USART6_IRQn, 0, 0);
+    HAL_NVIC_SetPriority(USART6_IRQn, 6, 7);
     HAL_NVIC_EnableIRQ(USART6_IRQn);
   /* USER CODE BEGIN USART6_MspInit 1 */
 
@@ -171,7 +170,7 @@ __weak void unpackUART5_Data(uint8_t* p)
     return;  
 }
 
-__weak void unpackUART6_Data()
+__weak void unpackUART6_Data(uint8_t* p)
 {
     /* NOTE: This function Should not be modified, when the callback is needed,
            the unpackData could be implemented in the user file
@@ -203,9 +202,9 @@ void USART6_IRQHandler()
     if(__HAL_UART_GET_FLAG(&huart6,UART_FLAG_IDLE))
     {
         __HAL_UART_CLEAR_IDLEFLAG(&huart6);
-//        unpackUSART1_Data(uart1ReceiveBuf);
-//        __HAL_DMA_DISABLE(&hdma_usart1_rx);
-//        __HAL_DMA_ENABLE(&hdma_usart1_rx);
+        unpackUART6_Data(uart6_receive_buf);
+        __HAL_DMA_DISABLE(&hdma_usart6_rx);
+        __HAL_DMA_ENABLE(&hdma_usart6_rx);
     }
     HAL_UART_IRQHandler(&huart6);
 }
